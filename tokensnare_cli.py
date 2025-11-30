@@ -53,7 +53,10 @@ def main():
             generate_pdf_honeytoken(
                 server_url=args.server,
                 output_file=final_output_path,
-                description=args.description
+                description=args.description,
+                title=args.title,
+                author=args.author,
+                content=args.content
             )
         case 'epub':
             generate_epub_honeytoken(
