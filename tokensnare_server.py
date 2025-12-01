@@ -1,5 +1,5 @@
 import argparse
-from flask import Flask, Response, request, jsonify, render_template, send_file
+from flask import Flask, Response, request, jsonify, render_template, send_file, redirect, url_for
 from flask_httpauth import HTTPBasicAuth
 from datetime import datetime, timezone, timedelta
 import logging
@@ -123,6 +123,23 @@ def show_token_details(token):
         token_data=ht_info, 
         hit_history=hit_history
     )
+
+# ACCIÓN WEB: BORRAR TOKEN
+@app.route("/web/delete/<token>", methods=['POST'])
+@auth.login_required
+def delete_token_web(token):
+    """Borra el token y redirige a la lista (Usado por el botón web)"""
+    global hits_db
+    
+    if token in tokens_db:
+        del tokens_db[token]
+        # Limpiar hits asociados
+        hits_db = [hit for hit in hits_db if hit['token'] != token]
+        save_database()
+        log_print(f"Honeytoken eliminado desde Web | ID: {token}")
+    
+    # Redirigir a la lista de tokens
+    return redirect(url_for('honeytokens_index'))
 
 # ============================================================================
 # ENDPOINTS DE LA API (ADMIN)

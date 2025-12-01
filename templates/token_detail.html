@@ -4,17 +4,8 @@
     <meta charset="UTF-8">
     <title>Detalles del Token: {{ token_data.token }}</title>
     <style>
-        /* Basic Styling (Copy from tokens_index.html for consistency) */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 1000px; margin: 0 auto; }
         .detail-card {
             background-color: #fff;
             border: 1px solid #ddd;
@@ -27,56 +18,47 @@
             border-bottom: 3px solid #007bff;
             padding-bottom: 10px;
             margin-bottom: 20px;
+            /* Flexbox para alinear titulo y boton */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .detail-header h1 {
-            margin: 0;
-            color: #007bff;
-            font-size: 1.8em;
-        }
-        .detail-info p {
-            margin: 8px 0;
-            font-size: 1em;
-        }
-        .detail-info strong {
-            display: inline-block;
-            width: 120px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            border: 1px solid #eee;
-            padding: 10px;
-            text-align: left;
-            font-size: 0.9em;
-        }
-        th {
-            background-color: #f8f9fa;
-            color: #495057;
-        }
-        .hit-count {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #dc3545;
-        }
-        .code-block {
-            background-color: #eee;
-            padding: 10px;
+        .detail-header h1 { margin: 0; color: #007bff; font-size: 1.8em; }
+        
+        .detail-info p { margin: 8px 0; font-size: 1em; }
+        .detail-info strong { display: inline-block; width: 120px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #eee; padding: 10px; text-align: left; font-size: 0.9em; }
+        th { background-color: #f8f9fa; color: #495057; }
+        .hit-count { font-size: 1.2em; font-weight: bold; color: #dc3545; }
+        .code-block { background-color: #eee; padding: 10px; border-radius: 4px; font-family: monospace; overflow-x: auto; }
+
+        /* Estilo para el botón de borrar */
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
             border-radius: 4px;
-            font-family: monospace;
-            overflow-x: auto;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
         }
+        .btn-delete:hover { background-color: #c82333; }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="/" style="font-size: 0.9em;">&larr; Volver al Dashboard</a>
+        <a href="/tokens" style="font-size: 0.9em; text-decoration: none; color: #666;">&larr; Volver a la Lista</a>
         
         <div class="detail-card">
             <div class="detail-header">
-                <h1>Detalles del Honeytoken: <code>{{ token_data.token }}</code></h1>
+                <h1>Detalles: <code>{{ token_data.token }}</code></h1>
+                
+                <form action="{{ url_for('delete_token_web', token=token_data.token) }}" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar este token?');">
+                    <button type="submit" class="btn-delete">Eliminar Token</button>
+                </form>
             </div>
 
             <div class="detail-info">
@@ -112,7 +94,7 @@
                     <td>{{ hit.ip }}</td>
                     <td style="max-width: 300px; overflow-x: auto;">{{ hit.user_agent }}</td>
                     <td>
-                        <a href="#hit-{{ loop.index }}" onclick="document.getElementById('full-headers-{{ loop.index }}').style.display = (document.getElementById('full-headers-{{ loop.index }}').style.display === 'none' ? 'block' : 'none'); return false;">Mostrar Headers</a>
+                        <a href="#" onclick="document.getElementById('full-headers-{{ loop.index }}').style.display = (document.getElementById('full-headers-{{ loop.index }}').style.display === 'none' ? 'block' : 'none'); return false;">Mostrar Headers</a>
                         <div id="full-headers-{{ loop.index }}" class="code-block" style="display:none; margin-top: 5px;">
                             <pre>{{ hit.headers | tojson(indent=2) }}</pre>
                         </div>
