@@ -10,6 +10,8 @@ services:
       - "5000:5000"
     volumes:
       - ./honeyTokens:/app/honeyTokens
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1 # No hacer buffering de los logs
     init: true

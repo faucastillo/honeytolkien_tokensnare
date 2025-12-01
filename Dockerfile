@@ -11,6 +11,8 @@ RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
 COPY generators generators
+COPY assets assets
+COPY templates templates
 COPY tokensnare_cli.py .
 COPY tokensnare_server.py .
 
