@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        USER_ID: ${UID:-1000}
+    user: "${UID:-1000}:${GID:-1000}"
+    container_name: tokensnare
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./honeyTokens:/app/honeyTokens
+    environment:
+      - PYTHONUNBUFFERED=1 # No hacer buffering de los logs
+    init: true
