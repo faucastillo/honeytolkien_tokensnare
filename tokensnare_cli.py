@@ -6,8 +6,7 @@ Herramienta centralizada para generación de Honeytokens.
 import argparse
 from pathlib import Path
 
-from generators import generate_pdf_honeytoken, generate_epub_honeytoken, generate_xlsx_honeytoken, generate_docx_honeytoken, generate_qrcode_honeytoken
-from generators.binary_gen import generate_binary_honeytoken
+from generators import generate_pdf_honeytoken, generate_binary_honeytoken, generate_epub_honeytoken, generate_xlsx_honeytoken, generate_docx_honeytoken, generate_qrcode_honeytoken
 
 OUTPUT_FOLDER_NAME = "honeyTokens"
 FILE_TYPE_SUPPORTED = ['pdf', 'epub', 'xlsx', 'docx', 'qrcode', 'binary']
