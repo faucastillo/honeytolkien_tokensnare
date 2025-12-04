@@ -412,9 +412,9 @@ def main():
             La base de datos se guarda en: tokensnare_db.json
         """)
     )
-    
-    parser.add_argument('--host', default='127.0.0.1',
-                       help='Host del servidor (default: 127.0.0.1)')
+
+    parser.add_argument('--host', default='0.0.0.0',
+                       help='Host del servidor (default: 0.0.0.0 para escuchar todas las interfaces)')
     parser.add_argument('--port', type=int, default=5000,
                        help='Puerto del servidor (default: 5000)')
     
